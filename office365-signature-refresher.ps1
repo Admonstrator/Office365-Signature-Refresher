@@ -112,9 +112,13 @@ foreach ($user in $allusers) {
         $SignaturePlain = $SignaturePlain.Replace("[EmailAddress]", $user.mail)
     }
     # Push signatures
+    # This will only push the default signatures (HTML + Plain)
+    Set-MailboxMessageConfiguration -SignatureHtml:$SignatureHTML -SignatureText:$SignaturePlain -SignatureTextOnMobile:$SignaturePlain -Identity $user.mail
+    # Push Mailbox configuration
     # You can push other settings as well, see https://docs.microsoft.com/de-de/powershell/module/exchange/set-mailboxmessageconfiguration?view=exchange-ps
     # For pushing a default font add something like -DefaultFontName:Tahoma -DefaultFontSize:11
-    Set-MailboxMessageConfiguration -AlwaysShowBcc:$true -AutoAddSignatureOnMobile:$true -IsFavoritesFolderTreeCollapsed:$true -IsMailRootFolderTreeCollapsed:$true -LinkPreviewEnabled:$false -MailFolderPaneExpanded:$true -UseDefaultSignatureOnMobile:$true -SignatureHtml:$SignatureHTML -DefaultFormat:html -AutoAddSignatureOnReply:$true -AutoAddSignature:$true -SignatureText:$SignaturePlain -SignatureTextOnMobile:$SignaturePlain -Identity $user.mail
+    Set-MailboxMessageConfiguration -AlwaysShowBcc:$true -AutoAddSignatureOnMobile:$true -IsFavoritesFolderTreeCollapsed:$true -IsMailRootFolderTreeCollapsed:$true -LinkPreviewEnabled:$false -MailFolderPaneExpanded:$true -UseDefaultSignatureOnMobile:$true -DefaultFormat:html -AutoAddSignatureOnReply:$true -AutoAddSignature:$true -Identity $user.mail
+  
     Write-Host Signature set for $user.samaccountname -ForegroundColor Green
 }
 
