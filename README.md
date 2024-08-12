@@ -1,4 +1,7 @@
 # Office365-Signature-Refresher
+
+**Due to changes in the Exchange Online Powershell module this script is not working anymore. I will not update this script anymore. The repository will be archived.**
+
 ## Synopsis
 Setting up org-wide signatures for O365 easily by using Powershell.
 
